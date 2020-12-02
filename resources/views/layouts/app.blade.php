@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -57,21 +58,34 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Logout
+                            <li class="nav-item dropdown d-flex">
+                                @if (Auth::user()->admin === 1)
+                                    <div class="dropdown">
+                                        <a id="manageDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            Administrar
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="manageDropdown">
+                                            <a href="administrar/cursos" class="dropdown-item">Cursos</a>
+                                            <a href="administrar/categorias" class="dropdown-item">Categorias</a>
+                                            <a href="administrar/usuarios" class="dropdown-item">Usuarios</a>
+                                        </div>
+                                    </div>
+                                @endif
+                                <div class="dropdown">
+                                    <a id="usernameDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
                                     </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="usernameDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
                                 </div>
                             </li>
                         @endguest

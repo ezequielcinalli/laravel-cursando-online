@@ -25,4 +25,37 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    /**
+     * Show the view courses.
+     */
+    public function courses()
+    {
+        return view('courses');
+    }
+
+    /**
+     * Show the view manage courses.
+     */
+    public function manageCourses()
+    {
+        return view('manage.manage-courses');
+    }
+
+    /**
+     * Show the view manage categories.
+     */
+    public function manageCategories()
+    {
+        return view('manage.manage-categories');
+    }
+
+    /**
+     * Show the view manage users.
+     */
+    public function manageUsers()
+    {
+        return view('manage.manage-users');
+    }
+    
 }
