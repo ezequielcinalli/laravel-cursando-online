@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ApiUserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +42,7 @@ class ApiUserController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::findOrFail($id);
     }
 
     /**

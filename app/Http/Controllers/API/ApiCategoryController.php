@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Curso;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class ApiCursoController extends Controller
+class ApiCategoryController extends Controller
 {
     public function __construct()
     {
@@ -20,7 +20,7 @@ class ApiCursoController extends Controller
      */
     public function index()
     {
-        return Curso::all();
+        return Category::all();
     }
 
     /**
@@ -31,11 +31,15 @@ class ApiCursoController extends Controller
      */
     public function store(Request $request)
     {
-        $curso = new Curso();
-        $curso->nombre = $request->nombre;
-        $curso->descripcion = $request->descripcion;
-        $curso->id_categoria = $request->id_categoria;
-        $curso->save();
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+        $category = new Category();
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->save();
+        return $category;
     }
 
     /**
@@ -46,7 +50,7 @@ class ApiCursoController extends Controller
      */
     public function show($id)
     {
-        return Curso::findOrFail($id);
+        return Category::findOrFail($id);
     }
 
     /**
@@ -58,21 +62,11 @@ class ApiCursoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
-            'id_categoria' => 'required'
-        ],
-        [
-            'descripcion.required' => 'Debes incluir descripcion'
-        ]);
-
-        $course = Curso::findOrFail($id);
-        $course->nombre = $request->nombre;
-        $course->descripcion = $request->descripcion;
-        $course->id_categoria = $request->id_categoria;
-        $course->save();
-        // return $course;
+        $category = Category::findOrFail($id);
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->save();
+        return $category;
     }
 
     /**
@@ -83,7 +77,6 @@ class ApiCursoController extends Controller
      */
     public function destroy($id)
     {
-        $course = Curso::findOrFail($id);
-        $course->destroy();
+        Category::destroy($id);
     }
 }
