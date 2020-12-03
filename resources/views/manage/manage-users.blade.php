@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>manage users works!</h1>
+    <h1 class="text-center">Administrar usuarios</h1>
+    <manage-users-component></manage-users-component>
 </div>
 @endsection
