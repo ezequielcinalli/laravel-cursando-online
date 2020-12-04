@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 
-use App\Http\Controllers\API\ApiCursoController;
+use App\Http\Controllers\API\ApiCourseController;
 use App\Http\Controllers\API\ApiUserController;
 use App\Http\Controllers\API\ApiCategoryController;
 
@@ -18,7 +18,7 @@ Route::get('/administrar/usuarios', [HomeController::class, 'manageUsers'])->nam
 Auth::routes();
 
 Route::apiResources([
-    'api/cursos' => ApiCursoController::class,
+    'api/courses' => ApiCourseController::class,
     'api/users' => ApiUserController::class,
     'api/categories' => ApiCategoryController::class,
 ]);

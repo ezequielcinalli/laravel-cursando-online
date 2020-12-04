@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Curso;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
-class ApiCursoController extends Controller
+class ApiCourseController extends Controller
 {
     public function __construct()
     {
@@ -20,7 +20,7 @@ class ApiCursoController extends Controller
      */
     public function index()
     {
-        return Curso::all();
+        return Course::all();
     }
 
     /**
@@ -31,11 +31,11 @@ class ApiCursoController extends Controller
      */
     public function store(Request $request)
     {
-        $curso = new Curso();
-        $curso->nombre = $request->nombre;
-        $curso->descripcion = $request->descripcion;
-        $curso->id_categoria = $request->id_categoria;
-        $curso->save();
+        $course = new Course();
+        $course->nombre = $request->nombre;
+        $course->descripcion = $request->descripcion;
+        $course->id_categoria = $request->id_categoria;
+        $course->save();
     }
 
     /**
@@ -46,7 +46,7 @@ class ApiCursoController extends Controller
      */
     public function show($id)
     {
-        return Curso::findOrFail($id);
+        return Course::findOrFail($id);
     }
 
     /**
@@ -67,7 +67,7 @@ class ApiCursoController extends Controller
             'descripcion.required' => 'Debes incluir descripcion'
         ]);
 
-        $course = Curso::findOrFail($id);
+        $course = Course::findOrFail($id);
         $course->nombre = $request->nombre;
         $course->descripcion = $request->descripcion;
         $course->id_categoria = $request->id_categoria;
@@ -83,7 +83,7 @@ class ApiCursoController extends Controller
      */
     public function destroy($id)
     {
-        $course = Curso::findOrFail($id);
+        $course = Course::findOrFail($id);
         $course->destroy();
     }
 }

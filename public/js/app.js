@@ -1963,6 +1963,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1972,7 +1976,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get('api/cursos').then(function (res) {
+    axios.get('api/courses').then(function (res) {
       _this.courses = res.data;
     });
   }
@@ -37913,25 +37917,33 @@ var render = function() {
         _vm._v(" "),
         _vm._l(_vm.courses, function(course) {
           return _c("div", { key: course.id, staticClass: "card mt-4" }, [
-            _c("div", { staticClass: "card-body" }, [
-              _c("h4", [
-                _c("span", { staticClass: "badge badge-primary" }, [
-                  _vm._v(_vm._s(course.id_categoria))
+            _c("div", { staticClass: "card-body d-flex" }, [
+              _c("img", { attrs: { src: course.image, alt: "image" } }),
+              _vm._v(" "),
+              _c("div", { staticClass: "ml-5" }, [
+                _c("h4", [
+                  _c("span", { staticClass: "badge badge-primary" }, [
+                    _vm._v(_vm._s(course.id_category))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(course.name))
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(course.image))
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Precio: $" + _vm._s(course.price))]),
+                _vm._v(" "),
+                _c("h4", [
+                  _vm._v("Duración en meses: " + _vm._s(course.duration) + " ")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(_vm._s(course.description))
                 ])
-              ]),
-              _vm._v(" "),
-              _c("h3", { staticClass: "card-title" }, [
-                _vm._v(_vm._s(course.nombre))
-              ]),
-              _vm._v(" "),
-              _c("h4", [_vm._v("Precio: $" + _vm._s(course.precio))]),
-              _vm._v(" "),
-              _c("h4", [
-                _vm._v("Duración en meses: " + _vm._s(course.duracion) + " ")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v(_vm._s(course.descripcion))
               ])
             ])
           ])
