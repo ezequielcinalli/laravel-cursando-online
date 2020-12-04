@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ApiCourseController extends Controller
 {
@@ -31,11 +32,25 @@ class ApiCourseController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'duration' => 'required',
+            'id_category' => 'required',
+        ]);
         $course = new Course();
-        $course->nombre = $request->nombre;
-        $course->descripcion = $request->descripcion;
-        $course->id_categoria = $request->id_categoria;
+        $course->name = $request->name;
+        $course->description = $request->description;
+        $course->price = intval($request->price);
+        $course->duration = intval($request->duration);
+        $course->id_category = intval($request->id_category);
+
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            $course->image = $request->file('image')->store('images/courses');
+        }
         $course->save();
+        return $course;
     }
 
     /**
@@ -59,20 +74,24 @@ class ApiCourseController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
-            'id_categoria' => 'required'
-        ],
-        [
-            'descripcion.required' => 'Debes incluir descripcion'
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'duration' => 'required',
+            'id_category' => 'required',
         ]);
-
         $course = Course::findOrFail($id);
-        $course->nombre = $request->nombre;
-        $course->descripcion = $request->descripcion;
-        $course->id_categoria = $request->id_categoria;
+        $course->name = $request->name;
+        $course->description = $request->description;
+        $course->price = intval($request->price);
+        $course->duration = intval($request->duration);
+        $course->id_category = intval($request->id_category);
+        
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            $course->image = $request->file('image')->store('images');
+        }
         $course->save();
-        // return $course;
+        return $course;
     }
 
     /**
@@ -83,7 +102,8 @@ class ApiCourseController extends Controller
      */
     public function destroy($id)
     {
-        $course = Course::findOrFail($id);
-        $course->destroy();
+        $pathImage = Course::findOrFail($id)->image;
+        Storage::delete($pathImage);
+        Course::destroy($id);
     }
 }
