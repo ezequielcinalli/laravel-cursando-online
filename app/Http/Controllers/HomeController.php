@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -33,6 +34,15 @@ class HomeController extends Controller
     public function courses()
     {
         return view('courses');
+    }
+
+    /**
+     * Show the detail of course.
+     */
+    public function showCourse($id)
+    {
+        $course = Course::findOrFail($id);
+        return view('detailCourse', compact('course'));
     }
 
     /**
