@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid row">
         <div class="col-md-4 col-lg-3">
-            <aside-courses-component></aside-courses-component>
+            <filter-courses-component v-on:filter="updateCourses"></filter-courses-component>
         </div>
         <div class="col-md-8 col-lg-9 d-flex flex-wrap">
             <h1 class="w-100 text-center mt-3">Cursos</h1>
@@ -18,6 +18,9 @@
                         <a :href="'cursos/' + course.id" class="btn btn-primary">Mas info</a>
                     </div>
                 </div>
+            </div>
+            <div v-if="!courses.length">
+                <h1>No hay cursos disponibles con el criterio de busqueda seleccionado!</h1>
             </div>
         </div>
     </div>
@@ -42,6 +45,9 @@
         methods:{
             getCategoryName(id){
                 return this.categories.find(category => category.id === id).name;
+            },
+            updateCourses(coursesFilter){
+                this.courses = coursesFilter;
             }
         },
     }

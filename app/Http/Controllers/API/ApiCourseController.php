@@ -19,8 +19,31 @@ class ApiCourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $filter = $request->filter;
+        $name = $request->name;
+        $min = $request->min;
+        $max = $request->max;
+
+        if($filter){
+            switch($filter){
+                case 'name':
+                    return Course::where('name', 'like', '%'.$name.'%')->get();
+                break;
+                case 'duration': case 'price':
+                    if($min){
+                        if($max){
+                            return Course::whereBetween($filter, [$min,$max])->get();
+                        }
+                        return Course::where($filter, '>=', $min)->get();
+                    }
+                    elseif($max){
+                        return Course::where($filter, '<=', $max)->get();
+                    }
+                break;
+            }
+        }
         return Course::all();
     }
 
